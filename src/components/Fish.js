@@ -1,12 +1,19 @@
 import React from 'react';
+import { formatPrice } from '../helpers'; 
 
 class Fish extends React.Component {
   render() {
+    const { details } = this.props;
     return (
-      <div>
-        <h1>{this.props.details.name}</h1>
-        <p>{this.props.details.desc}</p>
-      </div>
+      <li className='menu-fish'>
+        <img src='../../images/redirect-card.jpg' alt={details.name}/>
+        <h3 className="fish-name">
+          {details.name}
+          <span className="price">{formatPrice(details.price)}</span>
+        </h3>
+          <p>{details.desc}</p>
+          <button>Add To Order</button>
+      </li>
     )
   }
 }
