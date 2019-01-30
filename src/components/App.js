@@ -13,6 +13,7 @@ class App extends React.Component {
     // Bind the function to this class 
     this.addFish = this.addFish.bind(this);
     this.loadSamples = this.loadSamples.bind(this);
+    this.addToOrder = this.addToOrder.bind(this);
 
     this.state = {
       fishes: {},
@@ -38,11 +39,12 @@ class App extends React.Component {
     console.log('Samples Loaded...');
   }
 
-  componentDidMount() {
-    this.loadSamples();
-    console.log('loaded samples');
+  addToOrder(key) {
+    const order = {...this.state.order};
+    order[key] = order[key] + 1 || 1;
+    this.setState({ order });
+    console.log('added to order');
   }
-
 
   render() {
     return (
@@ -53,11 +55,11 @@ class App extends React.Component {
             {
               Object
                   .keys(this.state.fishes)
-                  .map(key => <Fish key={key} details={this.state.fishes[key]} />)
+                  .map(key => <Fish key={key} index={key} addToOrder={this.addToOrder} details={this.state.fishes[key]} />)
             }
           </ul>
         </div>
-        <Order />
+        <Order fishes={this.state.fishes} order={this.state.order} />
         <Inventory addFish={this.addFish} loadSamples={this.loadSamples} />
       </div>
     )
