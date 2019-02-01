@@ -13,8 +13,11 @@ class App extends React.Component {
 
     // Bind the function to this class 
     this.addFish = this.addFish.bind(this);
+    this.removeFish = this.removeFish.bind(this);
+    this.updateFish = this.updateFish.bind(this);
     this.loadSamples = this.loadSamples.bind(this);
     this.addToOrder = this.addToOrder.bind(this);
+    this.removeFromOrder = this.removeFromOrder.bind(this);
 
     this.state = {
       fishes: {},
@@ -56,6 +59,18 @@ class App extends React.Component {
     this.setState({ fishes });
   }
 
+  updateFish(key, updatedFish) {
+    const fishes = {...this.state.fishes}
+    fishes[key] = updatedFish
+    this.setState({ fishes })
+  }
+
+  removeFish(key) {
+    const fishes = this.state.fishes;
+    fishes[key] = null;
+    this.setState({ fishes });
+  }
+
   loadSamples() {
     this.setState({
       fishes: sampleFishes
@@ -70,6 +85,12 @@ class App extends React.Component {
     console.log('added to order');
   }
 
+  removeFromOrder(key) {
+    const order = {...this.state.order};
+    delete order[key];
+    this.setState({ order });
+  }
+
   render() {
     return (
       <div className="catch-of-the-day">
@@ -78,20 +99,23 @@ class App extends React.Component {
           <ul className="list-of-fishes">
             {
               Object
-                  .keys(this.state.fishes)
-                  .map(key => <Fish key={key} index={key} addToOrder={this.addToOrder} details={this.state.fishes[key]} />)
+                .keys(this.state.fishes)
+                .map(key => <Fish key={key} index={key} addToOrder={this.addToOrder} details={this.state.fishes[key]} />)
             }
           </ul>
         </div>
         <Order 
           params={this.props.params} 
           fishes={this.state.fishes} 
-          order={this.state.order} 
+          order={this.state.order}
+          removeFromOrder={this.removeFromOrder} 
         />
         <Inventory
           addFish={this.addFish}
+          updateFish={this.updateFish}
           loadSamples={this.loadSamples}
           fishes={this.state.fishes}
+          removeFish={this.removeFish} 
         />
       </div>
     )

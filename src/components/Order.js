@@ -17,6 +17,7 @@ class Order extends React.Component {
     return (
       <li key={key}>
         <span>{order} lbs {fish.name}</span>
+        <button onClick={() => this.props.removeFromOrder(key)}>x</button>
         <span className="price">{formatPrice(fish.price * order)}</span>
       </li>
     )
