@@ -49,13 +49,9 @@ class App extends React.Component {
   }
 
   addFish(fish) {
-    // Copy fishes state
     const fishes = {...this.state.fishes};
-    // Make a timestamp
     const timeStamp = Date.now();
-    // Set the new state object 
     fishes[`fish-${timeStamp}`] = fish;
-    // Update the state
     this.setState({ fishes });
   }
 
@@ -75,7 +71,6 @@ class App extends React.Component {
     this.setState({
       fishes: sampleFishes
     });
-    console.log('Samples Loaded...');
   }
 
   addToOrder(key) {
@@ -120,6 +115,10 @@ class App extends React.Component {
       </div>
     )
   }
+}
+
+App.propTypes = {
+  params: React.PropTypes.object.isRequired
 }
 
 export default App;
