@@ -2,22 +2,16 @@ import React from 'react';
 import AddFishForm from './AddFishForm';
 
 class Inventory extends React.Component {
-  constructor() {
-    super();
-    this.renderFish = this.renderFish.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(e, key) {
+  handleChange = (e, key) => {
     const fish = this.props.fishes[key]
     const updatedFish = {
       ...fish, 
       [e.target.name]: e.target.value
     }
     this.props.updateFish(key, updatedFish);
-  }
+  };
 
- renderFish(key) {
+ renderFish = key => {
     const fish = this.props.fishes[key]
     return (
       <div className="fish-edit" key={key}>
@@ -29,11 +23,11 @@ class Inventory extends React.Component {
         </select>
         <textarea name="desc" placeholder="Description" value={fish.desc} onChange={(e) => this.handleChange(e, key)} >
         </textarea>
-        <input name="image" type="text" placeholder="Fish Image" onChange={(e) => this.handleChange(e, key)}/>
+        <input name="image" type="text" placeholder="Fish Image" value={fish.image} onChange={(e) => this.handleChange(e, key)}/>
         <button onClick={() => this.props.removeFish(key)}>Remove Fish</button>
       </div>
     )
-  }
+  };
 
   render() {
     return (

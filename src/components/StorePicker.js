@@ -2,7 +2,7 @@ import React from 'react';
 import { getFunName } from '../helpers'
 
 class StorePicker extends React.Component {
-  goToStore(event) {
+  goToStore = event => {
     event.preventDefault();
     const storeId = this.storeInput.value
 
